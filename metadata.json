@@ -1,0 +1,8 @@
+{
+  "name": "Copy of Copy of Copy of Guia Londres Awards",
+  "description": "A comprehensive awards management system featuring public voting, live streaming integration, partner management, and a robust admin dashboard.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
