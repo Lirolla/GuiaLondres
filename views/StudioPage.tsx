@@ -115,32 +115,32 @@ const StudioPage: React.FC<Props> = ({ state, updateState }) => {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
-      <div className="max-w-6xl mx-auto px-6 py-20">
+      <div className="max-w-6xl mx-auto px-4 md:px-6 py-16 md:py-20">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-6xl font-bold font-awards gold-gradient mb-4">
+        <div className="text-center mb-10 md:mb-16">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold font-awards gold-gradient mb-4">
             ESTÚDIO FOTOGRÁFICO
           </h1>
-          <p className="text-xl text-zinc-400">
+          <p className="text-base md:text-xl text-zinc-400">
             Agende sua sessão de fotos profissional
           </p>
-          <p className="text-3xl font-bold text-amber-400 mt-6">
+          <p className="text-xl md:text-3xl font-bold text-amber-400 mt-4 md:mt-6">
             £{state.studioConfig.sessionPrice} • {state.studioConfig.sessionDuration} minutos
           </p>
         </div>
 
         {step === 'calendar' && (
-          <div className="grid md:grid-cols-2 gap-10">
+          <div className="grid md:grid-cols-2 gap-6 md:gap-10">
             {/* Calendário */}
-            <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
-              <div className="flex items-center justify-between mb-6">
+            <div className="bg-zinc-900 border border-zinc-800 rounded-2xl md:rounded-3xl p-4 md:p-8">
+              <div className="flex items-center justify-between mb-4 md:mb-6">
                 <button
                   onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))}
                   className="p-2 hover:bg-zinc-800 rounded-lg"
                 >
                   ←
                 </button>
-                <h3 className="text-xl font-bold">
+                <h3 className="text-base md:text-xl font-bold">
                   {MONTHS[currentMonth.getMonth()]} {currentMonth.getFullYear()}
                 </h3>
                 <button
@@ -151,7 +151,7 @@ const StudioPage: React.FC<Props> = ({ state, updateState }) => {
                 </button>
               </div>
 
-              <div className="grid grid-cols-7 gap-2 mb-4">
+              <div className="grid grid-cols-7 gap-1 md:gap-2 mb-3 md:mb-4">
                 {DAYS_OF_WEEK.map(day => (
                   <div key={day} className="text-center text-xs text-zinc-500 font-bold">
                     {day}
@@ -159,7 +159,7 @@ const StudioPage: React.FC<Props> = ({ state, updateState }) => {
                 ))}
               </div>
 
-              <div className="grid grid-cols-7 gap-2">
+              <div className="grid grid-cols-7 gap-1 md:gap-2">
                 {calendarDays.map((date, idx) => {
                   const available = isDayAvailable(date);
                   const isSelected = date && selectedDate && 
@@ -171,7 +171,7 @@ const StudioPage: React.FC<Props> = ({ state, updateState }) => {
                       disabled={!available}
                       onClick={() => date && available && handleDateSelect(date)}
                       className={`
-                        aspect-square rounded-lg text-sm font-medium transition-all
+                        aspect-square rounded-lg text-xs md:text-sm font-medium transition-all
                         ${!date ? 'invisible' : ''}
                         ${!available ? 'text-zinc-700 cursor-not-allowed' : ''}
                         ${available && !isSelected ? 'bg-zinc-800 hover:bg-zinc-700 text-zinc-100' : ''}
@@ -186,8 +186,8 @@ const StudioPage: React.FC<Props> = ({ state, updateState }) => {
             </div>
 
             {/* Horários Disponíveis */}
-            <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
-              <h3 className="text-xl font-bold mb-6">
+            <div className="bg-zinc-900 border border-zinc-800 rounded-2xl md:rounded-3xl p-4 md:p-8">
+              <h3 className="text-base md:text-xl font-bold mb-4 md:mb-6">
                 {selectedDate ? (
                   <>Horários para {selectedDate.toLocaleDateString('pt-BR')}</>
                 ) : (
@@ -199,12 +199,12 @@ const StudioPage: React.FC<Props> = ({ state, updateState }) => {
                 <p className="text-zinc-500 text-center py-8">Nenhum horário disponível</p>
               )}
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2 md:gap-3">
                 {availableSlots.map(slot => (
                   <button
                     key={slot.id}
                     onClick={() => handleSlotSelect(slot)}
-                    className="bg-zinc-800 hover:bg-amber-600 border border-zinc-700 hover:border-amber-500 rounded-xl p-4 text-center transition-all"
+                    className="bg-zinc-800 hover:bg-amber-600 border border-zinc-700 hover:border-amber-500 rounded-xl p-3 md:p-4 text-center transition-all"
                   >
                     <div className="font-bold">{slot.startTime}</div>
                     <div className="text-xs text-zinc-400">até {slot.endTime}</div>
@@ -216,7 +216,7 @@ const StudioPage: React.FC<Props> = ({ state, updateState }) => {
         )}
 
         {step === 'form' && (
-          <div className="max-w-2xl mx-auto bg-zinc-900 border border-zinc-800 rounded-3xl p-10">
+          <div className="max-w-2xl mx-auto bg-zinc-900 border border-zinc-800 rounded-2xl md:rounded-3xl p-6 md:p-10">
             <h2 className="text-2xl font-bold mb-6">Seus Dados</h2>
             <form onSubmit={handleFormSubmit} className="space-y-6">
               <div>

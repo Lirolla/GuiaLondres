@@ -24,10 +24,10 @@ const VideosPage: React.FC<VideosPageProps> = ({ state }) => {
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-b from-zinc-900 to-zinc-950">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold font-awards gold-gradient mb-6">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold font-awards gold-gradient mb-4 md:mb-6">
             VÍDEOS
           </h1>
-          <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
+          <p className="text-base md:text-xl text-zinc-400 max-w-2xl mx-auto px-4">
             Confira nossos conteúdos exclusivos: podcasts, entrevistas com parceiros e comerciais
           </p>
         </div>
@@ -41,7 +41,7 @@ const VideosPage: React.FC<VideosPageProps> = ({ state }) => {
               <button
                 key={cat.value}
                 onClick={() => setSelectedCategory(cat.value)}
-                className={`px-6 py-3 rounded-full font-medium transition-all ${
+                className={`px-4 md:px-6 py-2 md:py-3 rounded-full text-sm md:text-base font-medium transition-all ${
                   selectedCategory === cat.value
                     ? 'bg-gold-gradient text-zinc-950'
                     : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'
@@ -64,7 +64,7 @@ const VideosPage: React.FC<VideosPageProps> = ({ state }) => {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {filteredVideos.map(video => (
                 <div 
                   key={video.id}
@@ -82,7 +82,7 @@ const VideosPage: React.FC<VideosPageProps> = ({ state }) => {
                   </div>
 
                   {/* Video Info */}
-                  <div className="p-6">
+                  <div className="p-4 md:p-6">
                     {/* Category Badge */}
                     <div className="mb-3">
                       <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
@@ -96,7 +96,7 @@ const VideosPage: React.FC<VideosPageProps> = ({ state }) => {
                       </span>
                     </div>
 
-                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-amber-400 transition-colors">
+                    <h3 className="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-amber-400 transition-colors">
                       {video.title}
                     </h3>
                     
