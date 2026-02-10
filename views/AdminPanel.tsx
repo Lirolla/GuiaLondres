@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { AppState, Category, Partner, VideoEntry, Giveaway, HeroBanner } from '../types';
 import { generateNomineeDescription } from '../services/geminiService';
+import StudioAdmin from './StudioAdmin';
 
 interface Props {
   state: AppState;
@@ -23,7 +24,7 @@ const Modal: React.FC<{ title: string, onClose: () => void, children: React.Reac
 );
 
 const AdminPanel: React.FC<Props> = ({ state, updateState }) => {
-  const [activeTab, setActiveTab] = useState<'config' | 'live-obs' | 'categories' | 'partners' | 'videos' | 'giveaways'>('config');
+  const [activeTab, setActiveTab] = useState<'config' | 'live-obs' | 'categories' | 'partners' | 'videos' | 'giveaways' | 'studio'>('config');
   const [isGenerating, setIsGenerating] = useState(false);
   const [modalType, setModalType] = useState<string | null>(null);
   const [showParticipantsId, setShowParticipantsId] = useState<string | null>(null);
@@ -200,6 +201,7 @@ const AdminPanel: React.FC<Props> = ({ state, updateState }) => {
             {[
               { id: 'config', label: 'Banners & Geral' },
               { id: 'live-obs', label: 'Entrar Ao Vivo (OBS)' },
+              { id: 'studio', label: 'Estúdio Fotográfico' },
               { id: 'categories', label: 'Categorias & Votos' },
               { id: 'partners', label: 'Parceiros' },
               { id: 'videos', label: 'Vídeos' },
@@ -379,6 +381,11 @@ const AdminPanel: React.FC<Props> = ({ state, updateState }) => {
                   ))}
                 </div>
               </div>
+            )}
+
+            {/* STUDIO TAB */}
+            {activeTab === 'studio' && (
+              <StudioAdmin state={state} updateState={updateState} />
             )}
 
             {/* GIVEAWAYS TAB */}

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { HashRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import PublicHome from './views/PublicHome';
 import AdminPanel from './views/AdminPanel';
+import StudioPage from './views/StudioPage';
 import { AppState } from './types';
 import { INITIAL_STATE } from './constants';
 
@@ -27,6 +28,7 @@ const App: React.FC = () => {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<PublicHome state={state} updateState={updateState} />} />
+            <Route path="/studio" element={<StudioPage state={state} updateState={updateState} />} />
             <Route path="/admin" element={<AdminPanel state={state} updateState={updateState} />} />
           </Routes>
         </main>
@@ -49,6 +51,7 @@ const Navigation: React.FC = () => {
         </Link>
         <div className="flex gap-6 items-center">
           <Link to="/" className="text-sm hover:text-amber-400 transition-colors">Home</Link>
+          <Link to="/studio" className="text-sm hover:text-amber-400 transition-colors">Estúdio</Link>
           <Link 
             to={isAdmin ? "/" : "/admin"} 
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${

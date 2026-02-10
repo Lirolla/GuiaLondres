@@ -35,5 +35,29 @@ export const INITIAL_STATE: AppState = {
   ],
   giveaways: [
     { id: 'g1', title: 'Dinner for Two at Savoy', description: 'Register to participate in our luxury dinner draw!', active: true, participants: [] }
-  ]
+  ],
+  studioConfig: {
+    sessionPrice: 150,
+    sessionDuration: 60,
+    slotInterval: 60,
+    stripePublicKey: '',
+    daysAvailability: [
+      { id: 'd0', dayOfWeek: 0, enabled: false, timeSlots: [] },
+      { id: 'd1', dayOfWeek: 1, enabled: false, timeSlots: [] },
+      { id: 'd2', dayOfWeek: 2, enabled: true, timeSlots: [
+        { id: 't1', startTime: '09:00', endTime: '10:00' },
+        { id: 't2', startTime: '10:00', endTime: '11:00' },
+        { id: 't3', startTime: '11:00', endTime: '12:00' },
+        { id: 't4', startTime: '13:00', endTime: '14:00' },
+        { id: 't5', startTime: '14:00', endTime: '15:00' },
+        { id: 't6', startTime: '15:00', endTime: '16:00' },
+        { id: 't7', startTime: '16:00', endTime: '17:00' }
+      ] },
+      { id: 'd3', dayOfWeek: 3, enabled: false, timeSlots: [] },
+      { id: 'd4', dayOfWeek: 4, enabled: false, timeSlots: [] },
+      { id: 'd5', dayOfWeek: 5, enabled: false, timeSlots: [] },
+      { id: 'd6', dayOfWeek: 6, enabled: false, timeSlots: [] }
+    ]
+  },
+  bookings: []
 };
