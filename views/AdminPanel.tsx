@@ -78,7 +78,14 @@ const AdminPanel: React.FC<Props> = ({ state, updateState }) => {
   const savePartner = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formFields.name || !formFields.logoUrl) return;
-    const newPartner: Partner = { id: Date.now().toString(), name: formFields.name, logoUrl: formFields.logoUrl };
+    const newPartner: Partner = { 
+      id: Date.now().toString(), 
+      name: formFields.name, 
+      logoUrl: formFields.logoUrl,
+      description: formFields.description || '',
+      contact: formFields.contact || '',
+      websiteUrl: formFields.websiteUrl || ''
+    };
     updateState({ partners: [...state.partners, newPartner] });
     setModalType(null);
     setFormFields({});
@@ -100,8 +107,14 @@ const AdminPanel: React.FC<Props> = ({ state, updateState }) => {
 
   const saveVideo = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formFields.title || !formFields.url) return;
-    const newVideo: VideoEntry = { id: Date.now().toString(), title: formFields.title, url: formFields.url };
+    if (!formFields.title || !formFields.url || !formFields.category) return;
+    const newVideo: VideoEntry = { 
+      id: Date.now().toString(), 
+      title: formFields.title, 
+      url: formFields.url,
+      category: formFields.category,
+      description: formFields.description || ''
+    };
     updateState({ videos: [...state.videos, newVideo] });
     setModalType(null);
     setFormFields({});
@@ -346,13 +359,16 @@ const AdminPanel: React.FC<Props> = ({ state, updateState }) => {
                   <h2 className="text-2xl font-bold text-zinc-100">Parceiros</h2>
                   <button onClick={() => { setFormFields({}); setModalType('addPartner'); }} className="bg-amber-600 px-6 py-3 rounded-2xl text-xs font-bold hover:bg-amber-500 transition-colors uppercase tracking-widest">Novo Parceiro</button>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {state.partners.map(p => (
-                    <div key={p.id} className="relative group bg-zinc-950 p-8 rounded-[2rem] border border-zinc-800 text-center flex flex-col items-center gap-6 shadow-xl">
-                      <div className="h-24 flex items-center justify-center p-4 bg-white rounded-2xl w-full">
+                    <div key={p.id} className="relative group bg-zinc-950 p-8 rounded-[2rem] border border-zinc-800 shadow-xl">
+                      <div className="h-24 flex items-center justify-center p-4 bg-white rounded-2xl w-full mb-4">
                         <img src={p.logoUrl} className="max-h-full max-w-full object-contain" alt="" />
                       </div>
-                      <h4 className="font-bold text-lg font-awards">{p.name}</h4>
+                      <h4 className="font-bold text-lg font-awards mb-2">{p.name}</h4>
+                      {p.description && <p className="text-sm text-zinc-400 mb-3">{p.description}</p>}
+                      {p.contact && <p className="text-xs text-zinc-500 mb-1">📧 {p.contact}</p>}
+                      {p.websiteUrl && <p className="text-xs text-zinc-500 truncate">🌐 {p.websiteUrl}</p>}
                       <button onClick={() => removePartner(p.id)} className="absolute top-4 right-4 p-2 bg-red-600/10 text-red-500 rounded-xl opacity-0 group-hover:opacity-100 transition-all hover:bg-red-600 hover:text-white">
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
                       </button>
@@ -373,9 +389,23 @@ const AdminPanel: React.FC<Props> = ({ state, updateState }) => {
                   {state.videos.map(v => (
                     <div key={v.id} className="group bg-zinc-950 rounded-[2rem] overflow-hidden border border-zinc-800 shadow-2xl">
                       <iframe className="w-full aspect-video pointer-events-none opacity-60" src={v.url} />
-                      <div className="p-6 flex justify-between items-center">
-                        <h4 className="font-bold text-zinc-200 truncate font-awards text-lg">{v.title}</h4>
-                        <button onClick={() => removeVideo(v.id)} className="text-red-500 hover:text-red-400 text-[10px] font-bold tracking-widest">Excluir</button>
+                      <div className="p-6">
+                        <div className="mb-2">
+                          <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
+                            v.category === 'podcast' ? 'bg-purple-500/20 text-purple-400' :
+                            v.category === 'parceiros' ? 'bg-blue-500/20 text-blue-400' :
+                            'bg-amber-500/20 text-amber-400'
+                          }`}>
+                            {v.category === 'podcast' ? 'Podcast' : v.category === 'parceiros' ? 'Parceiro' : 'Comercial'}
+                          </span>
+                        </div>
+                        <div className="flex justify-between items-start">
+                          <div className="flex-1">
+                            <h4 className="font-bold text-zinc-200 font-awards text-lg mb-1">{v.title}</h4>
+                            {v.description && <p className="text-sm text-zinc-500">{v.description}</p>}
+                          </div>
+                          <button onClick={() => removeVideo(v.id)} className="text-red-500 hover:text-red-400 text-[10px] font-bold tracking-widest ml-4">Excluir</button>
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -510,6 +540,9 @@ const AdminPanel: React.FC<Props> = ({ state, updateState }) => {
           <form onSubmit={savePartner} className="space-y-5">
             <input placeholder="Nome da Empresa" required className="w-full bg-zinc-950 border border-zinc-800 rounded-2xl p-5" onChange={(e) => handleFieldChange('name', e.target.value)} />
             <input placeholder="URL do Logo" required className="w-full bg-zinc-950 border border-zinc-800 rounded-2xl p-5" onChange={(e) => handleFieldChange('logoUrl', e.target.value)} />
+            <textarea placeholder="Descrição da empresa" rows={3} className="w-full bg-zinc-950 border border-zinc-800 rounded-2xl p-5" onChange={(e) => handleFieldChange('description', e.target.value)} />
+            <input placeholder="Email de contato" type="email" className="w-full bg-zinc-950 border border-zinc-800 rounded-2xl p-5" onChange={(e) => handleFieldChange('contact', e.target.value)} />
+            <input placeholder="URL do website" type="url" className="w-full bg-zinc-950 border border-zinc-800 rounded-2xl p-5" onChange={(e) => handleFieldChange('websiteUrl', e.target.value)} />
             <button className="w-full py-5 bg-gold-gradient text-zinc-950 font-black rounded-2xl uppercase tracking-widest text-xs">Adicionar Parceiro</button>
           </form>
         </Modal>
@@ -531,6 +564,13 @@ const AdminPanel: React.FC<Props> = ({ state, updateState }) => {
           <form onSubmit={saveVideo} className="space-y-6">
             <input placeholder="Título do Vídeo" required className="w-full bg-zinc-950 border border-zinc-800 rounded-2xl p-5" onChange={(e) => handleFieldChange('title', e.target.value)} />
             <input placeholder="URL YouTube Embed" required className="w-full bg-zinc-950 border border-zinc-800 rounded-2xl p-5" onChange={(e) => handleFieldChange('url', e.target.value)} />
+            <select required className="w-full bg-zinc-950 border border-zinc-800 rounded-2xl p-5 text-zinc-300" onChange={(e) => handleFieldChange('category', e.target.value)}>
+              <option value="">Selecione a categoria</option>
+              <option value="podcast">Podcast</option>
+              <option value="parceiros">Parceiros</option>
+              <option value="comerciais">Comerciais</option>
+            </select>
+            <textarea placeholder="Descrição (opcional)" rows={3} className="w-full bg-zinc-950 border border-zinc-800 rounded-2xl p-5" onChange={(e) => handleFieldChange('description', e.target.value)} />
             <button className="w-full py-5 bg-gold-gradient text-zinc-950 font-black rounded-2xl uppercase tracking-widest text-xs">Salvar Vídeo</button>
           </form>
         </Modal>

@@ -10,6 +10,9 @@ export interface Partner {
   id: string;
   name: string;
   logoUrl: string;
+  description: string;
+  contact: string;
+  websiteUrl: string;
 }
 
 export interface Nominee {
@@ -26,10 +29,14 @@ export interface Category {
   nominees: Nominee[];
 }
 
+export type VideoCategory = 'podcast' | 'parceiros' | 'comerciais';
+
 export interface VideoEntry {
   id: string;
   title: string;
   url: string; // YouTube/Vimeo embed URL
+  category: VideoCategory;
+  description?: string;
 }
 
 export interface Giveaway {

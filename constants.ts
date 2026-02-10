@@ -17,8 +17,22 @@ export const INITIAL_STATE: AppState = {
     rtmpKey: "gl-awards-key-2024"
   },
   partners: [
-    { id: '1', name: 'Premium London Agency', logoUrl: 'https://picsum.photos/id/1/200/100' },
-    { id: '2', name: 'Taste of Brazil', logoUrl: 'https://picsum.photos/id/2/200/100' }
+    { 
+      id: '1', 
+      name: 'Premium London Agency', 
+      logoUrl: 'https://picsum.photos/id/1/200/100',
+      description: 'Leading marketing and branding agency in London',
+      contact: 'contact@premiumlondon.com',
+      websiteUrl: 'https://premiumlondon.com'
+    },
+    { 
+      id: '2', 
+      name: 'Taste of Brazil', 
+      logoUrl: 'https://picsum.photos/id/2/200/100',
+      description: 'Authentic Brazilian cuisine and catering services',
+      contact: 'info@tasteofbrazil.co.uk',
+      websiteUrl: 'https://tasteofbrazil.co.uk'
+    }
   ],
   categories: [
     {
@@ -31,7 +45,27 @@ export const INITIAL_STATE: AppState = {
     }
   ],
   videos: [
-    { id: 'v1', title: 'Last Year Highlights', url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' }
+    { 
+      id: 'v1', 
+      title: 'Last Year Highlights', 
+      url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+      category: 'comerciais',
+      description: 'Melhores momentos da edição anterior'
+    },
+    { 
+      id: 'v2', 
+      title: 'Podcast: Empreendedorismo em Londres', 
+      url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+      category: 'podcast',
+      description: 'Conversas inspiradoras com empreendedores brasileiros'
+    },
+    { 
+      id: 'v3', 
+      title: 'Parceiro: Premium London Agency', 
+      url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+      category: 'parceiros',
+      description: 'Conheça nosso parceiro Premium London Agency'
+    }
   ],
   giveaways: [
     { id: 'g1', title: 'Dinner for Two at Savoy', description: 'Register to participate in our luxury dinner draw!', active: true, participants: [] }

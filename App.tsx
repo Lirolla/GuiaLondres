@@ -4,6 +4,8 @@ import { HashRouter, Routes, Route, Link, useLocation, useNavigate } from 'react
 import PublicHome from './views/PublicHome';
 import AdminPanel from './views/AdminPanel';
 import StudioPage from './views/StudioPage';
+import VideosPage from './views/VideosPage';
+import PartnersPage from './views/PartnersPage';
 import { LoginPage } from './views/LoginPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
@@ -31,6 +33,8 @@ const AppContent: React.FC = () => {
         <Routes>
           <Route path="/" element={<PublicHome state={state} updateState={updateState} />} />
           <Route path="/studio" element={<StudioPage state={state} updateState={updateState} />} />
+          <Route path="/videos" element={<VideosPage state={state} />} />
+          <Route path="/parceiros" element={<PartnersPage state={state} />} />
           <Route path="/login" element={<LoginPage />} />
           <Route 
             path="/admin" 
@@ -76,6 +80,8 @@ const Navigation: React.FC = () => {
         <div className="flex gap-6 items-center">
           <Link to="/" className="text-sm hover:text-amber-400 transition-colors">Home</Link>
           <Link to="/studio" className="text-sm hover:text-amber-400 transition-colors">Estúdio</Link>
+          <Link to="/videos" className="text-sm hover:text-amber-400 transition-colors">Vídeos</Link>
+          <Link to="/parceiros" className="text-sm hover:text-amber-400 transition-colors">Parceiros</Link>
           <button 
             onClick={handleAdminClick}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
