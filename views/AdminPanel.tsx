@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { AppState, Category, Partner, VideoEntry, Giveaway, HeroBanner } from '../types';
-import { generateNomineeDescription } from '../services/geminiService';
+// import { generateNomineeDescription } from '../services/geminiService';
 import StudioAdmin from './StudioAdmin';
 
 interface Props {
@@ -52,7 +52,7 @@ const AdminPanel: React.FC<Props> = ({ state, updateState }) => {
 
     setIsGenerating(true);
     const cat = state.categories.find(c => c.id === catId);
-    const description = formFields.description || await generateNomineeDescription(formFields.name, cat?.title || "");
+    const description = formFields.description || ''; // await generateNomineeDescription(formFields.name, cat?.title || "");
     setIsGenerating(false);
 
     const newCategories = state.categories.map(c => {
